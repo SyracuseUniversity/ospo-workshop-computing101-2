@@ -1,4 +1,4 @@
-# Session 2: `ssh`
+# Session 1: `ssh`
 
 The following tasks will help you setup `ssh` and familiarize yourself with `ssh` keys.
 
@@ -23,7 +23,8 @@ You should see at least two files in there, one called `id_ed25519` and one call
 The `id_ed25519` file is your **private** key. **Do not share your private key with anyone!** It remains on your computer, and only on your computer. The `id_ed25519.pub` file is your **public** key. You can share the contents of your public key with other servers you want to log in to.
 
 ----
-*Note: you need a GitHub account to do the following steps. If you do not have a GitHub account, sign up for one by going to `github.com` and following the onscreen instructions. Once you have an account you can proceed.*
+*Note: you need a GitHub account to do the following steps. If you do not have a GitHub account, sign up for one by going to https://github.com and following the onscreen instructions. Once you have an account you can proceed.*
+
 ----
 
 3. Now let's upload your public key to GitHub so that you can use your ssh keypairs when interacting with GitHub. Follow the instructions here: [Adding a new SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?platform=linux#adding-a-new-ssh-key-to-your-account).
@@ -44,7 +45,7 @@ Hi USERNAME! You've successfully authenticated, but GitHub does not provide shel
 ```
 where `USERNAME` is your username.
 
-5. Now that you have an ssh key pair setup with github, you can use `ssh` URLs for cloning git repositories. Try it! Click the green `<> Code` button in the upper right of this repository, then click the `SSH` tab. Copy the URL there. Go to your terminal app and type `git clone ` in your terminal, then paste in the URL you copied from the website. Hit `<enter>`. The repo should clone. Type `ls` to verify it worked. You should see a `ospo-workshop-computing101-2` directory.
+5. Now that you have an ssh key pair setup with github, you can use `ssh` URLs for cloning git repositories. Try it! Click the green `<> Code` button in the upper right of this repository, then click the `SSH` tab. Copy the URL there. Go to your terminal and type `git clone ` in your terminal, then paste in the URL you copied from the website. Hit `<enter>`. The repo should clone. Type `ls` to verify it worked. You should see a `ospo-workshop-computing101-2` directory.
 
 
 ## Task 2: Modify ssh config
@@ -55,7 +56,7 @@ ssh USERNAME@HOSTNAME
 ```
 where `USERNAME` is your username *on the server* (which may not be the same as on your computer) and `HOSTNAME` is the address of the server. For example, above we ran `ssh -T git@github.com`. There, `git` was the `USERNAME` and `github.com` was the `HOSTNAME`. This can be shortened somewhat if your username on the server is the same as on your computer; in that case you can just type `ssh HOSTNAME`. Even then, typing hostnames out can be tedious and can be difficult to remember or type. 
 
-You can simplify what you need to type to login to a server by modifying the `~/.ssh/config` file. The syntax for the `config` file is to have blocks of text for each server that you want to set configurations for. In general, the syntax is:
+You can simplify what you need to type to login to a server by modifying the `~/.ssh/config` file. The `config` file consists of blocks of text for each server that you want to set configurations for. In general, the syntax for each block is:
 
 ```
 Host HOST_ALIAS
@@ -79,11 +80,11 @@ ssh -T github
 ```
 You should get the same "You've successfully authenticated" message you got above. Notice that you did not need to type out `git@github.com`. This is because your `config` file instructed `ssh` to login to `github.com` using the user `git` when it's given host name `github`.
 
-If you want to do add more servers, add new blocks of text to your config file, each beginning with `Host`. Wild cards can also be used for `Host` to match multiple servers. For example, if you want to some settings to apply to all servers, create a section called `Host *`.
+If you want to add more servers, add new blocks of text to your config file, each beginning with `Host`. Wild cards can also be used for `Host` to match multiple servers. For example, if you want some settings to apply to all servers, create a section called `Host *`.
 
 ## Task 3: Setting up an ssh agent
 
-If you protected your `ssh` key with a passphrase when you ran `ssh-keygen` (it's best practice to do so), then every time you use your ssh keys you'll need to reenter your passphrase. This can get annoying, especially when you use the keys often; e.g. to push code to GitHub. You can make it so that you only need to enter your passphrase once per session by turning on an *ssh agent*. To do that, run the following:
+If you protected your `ssh` key with a passphrase when you ran `ssh-keygen` (it's best practice to do so), then every time you use your ssh keys you'll need to reenter your passphrase. This can get annoying, especially when you use the keys often, e.g., to push code to GitHub. You can make it so that you only need to enter your passphrase once per session by turning on an *ssh agent*. To do that, run the following:
 ```
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
@@ -92,7 +93,7 @@ When you run the `ssh-add` command you will be prompted for your passphrase for 
 
 -----
 
-*Optional:* Now that you have a `~/.ssh/config` file setup and you know how to turn on an ssh-agent, you may want to enable ssh agent forwarding. This will cause your ssh-agent to be "forwarded" to a server that you login to, so that it can unlock your ssh keys on your behalf, without needing separate keys stored on the server. This is particularly useful, if you want to pull/push from/to GitHub from a server using the ssh key you created on your laptop. To enable forwarding for all hosts, add the following to your `~/.ssh/config` file:
+*Optional:* Now that you have a `~/.ssh/config` file setup and you know how to turn on an ssh-agent, you may want to enable ssh-agent forwarding. This will cause your ssh-agent to be "forwarded" to a server that you login to, so that it can unlock your ssh keys on your behalf, without needing separate keys stored on the server. This is particularly useful if you want to pull/push from/to GitHub from a server using the ssh key you created on your laptop. To enable forwarding for all hosts, add the following to your `~/.ssh/config` file:
 
 ```
 Host *
