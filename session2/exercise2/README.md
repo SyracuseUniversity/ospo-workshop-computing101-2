@@ -37,7 +37,7 @@ git remote -v
 That will show you the URL of the origin. Note that this is printed twice: once for *fetching* (i.e., the default repo you will *pull* new updates from) and one for *pushing* (i.e., the repo to which you will *push* changes from your local computer).
 
 13. Now let's add a file. In your terminal, use your favorite text editor to create a file called `mymath.py` and put the following in it:
-```
+```python
 !#/usr/bin/env python
 
 """Some math functions."""
@@ -79,7 +79,7 @@ git branch -vv
 ```
 
 19. Let's modify `mymath.py` on `dev1`. On your local computer, use your favorite text editor to open `mymath.py` and add the following to it:
-```
+```python
 
 def subtract(a, b):
     return a - b
@@ -100,4 +100,17 @@ Note that when you did this, it pushed to the `dev1` branch on git hub (you'll s
 
 22. This will open "Pull request". Pull requests are GitHub's way of managing new development mergers. This particularly useful for collaborating with others on a project. You can use the pull request page to discuss changes before they are merged on to the main branch. You can alos have multiple pull requests open at once.
 
-23. Let's merge your pull request. There's a green `Merge pull request` button at the bottom of the page. Click it, then "Confirm merge". This will merge your changes on `dev1` on to master. You now have the option to delete `dev1`. Feel free to click the delete dev1 branch button.
+23. Let's merge your pull request. There's a green `Merge pull request` button at the bottom of the page. Click it, then "Confirm merge". This will merge your changes on `dev1` on to `main`. You now have the option to delete `dev1`. Feel free to click the delete dev1 branch button.
+
+24. Now that your `main` branch on GitHub has the merged changes, your `main` branch on your local copy is out of sync. To update it, go to your terminal and switch to your main branch:
+    ```
+    git checkout main
+    ```
+    You can now bring it up to date with your remote repository by running `git pull`:
+    ```
+    git pull
+    ```
+    Once that's done, you can also delete your local copy of the `dev1` branch by typing:
+    ```
+    git branch -d dev1
+    ```
