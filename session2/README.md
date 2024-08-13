@@ -10,4 +10,6 @@ git config --global user.email "YOUR_EMAIL_ADDRESS"
 
 ## Exercises
 
-
+ * [Exercise1](exercise1): Practice with `git` on a local repository
+ * [Exercise2](exercise2): `git` and GitHub
+ * [Exercise3](exercise3): Collaborating in GitHub using the Fork and Pull Model
